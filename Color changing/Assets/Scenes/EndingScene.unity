@@ -597,7 +597,7 @@ Canvas:
   m_RenderMode: 1
   m_Camera: {fileID: 571646109}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -642,6 +642,7 @@ MonoBehaviour:
   HomeButton: {fileID: 1899846761}
   RetryButton: {fileID: 880800076}
   endScore: {fileID: 15808297}
+  ButtonClick: {fileID: 8300000, guid: da409f37bfae6d1478b08ad19537db70, type: 3}
 --- !u!1 &1899846759
 GameObject:
   m_ObjectHideFlags: 0

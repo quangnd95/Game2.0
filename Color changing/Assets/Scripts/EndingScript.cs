@@ -7,6 +7,7 @@ public class EndingScript : MonoBehaviour {
     public Button HomeButton;
     public Button RetryButton;
     public Text endScore;
+    public AudioClip ButtonClick;
 
     private void Start()
     {
@@ -17,11 +18,16 @@ public class EndingScript : MonoBehaviour {
     public void HomeClicked()
     {
         if (HomeButton == true)
-        { SceneManager.LoadScene("StartScene"); }
+        { SceneManager.LoadScene("StartScene");
+          AudioSource.PlayClipAtPoint(ButtonClick, Vector3.zero);
+        }
+
     }
     public void RetryClicked()
     {
         if (RetryButton == true)
-        { SceneManager.LoadScene("PlaySceneLv1"); }
+        { SceneManager.LoadScene("PlaySceneLv1");
+          AudioSource.PlayClipAtPoint(ButtonClick, Vector3.zero);
+        }
     }
 }

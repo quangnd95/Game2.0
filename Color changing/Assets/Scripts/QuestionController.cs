@@ -26,7 +26,7 @@ public class QuestionController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         timeScales = 0;
-        time = 5f;
+        time = 4.5f;
         randomWorldText();
         randomQuanityText();
         randomColor();
@@ -40,33 +40,29 @@ public class QuestionController : MonoBehaviour {
             
             if (ColorClickController.score <= 5)
             {
-                timeScales = time / 5;
-
+                timeScales = time / 4.5f;
             }
             else if (ColorClickController.score > 5 && ColorClickController.score <= 10)
             {
-                timeScales = time / 4.5f;
+                timeScales = time / 4f;
             }
             else if (ColorClickController.score > 10 && ColorClickController.score <= 15)
             {
-                timeScales = time / 4;
+                timeScales = time / 3.5f;
             }
             else if (ColorClickController.score > 15 && ColorClickController.score <= 20)
             {
-                timeScales = time / 3.5f;
+                timeScales = time / 3f;
             }
             else if (ColorClickController.score > 20 && ColorClickController.score <= 25)
             {
-                timeScales = time / 3;
-            }
-            else if (ColorClickController.score > 25 && ColorClickController.score <= 30)
-            {
                 timeScales = time / 2.5f;
             }
-            else if (ColorClickController.score > 3)
+            else
             {
-                timeScales = time / 5;
+                timeScales = time / 2f;
             }
+            
             timeScale.transform.localScale = new Vector3(timeScales, 1, 1);
             if (time < 0)
             {
@@ -75,29 +71,25 @@ public class QuestionController : MonoBehaviour {
                 randomColor();
                 if(ColorClickController.score <= 5)
                 {
-                    time = 5f;
+                    time = 4.5f;
 
                 } else if(ColorClickController.score > 5 && ColorClickController.score <= 10)
                 {
-                    time = 4.5f;
+                    time = 4f;
                 }
                 else if (ColorClickController.score > 10 && ColorClickController.score <= 15)
                 {
-                    time = 4f;
+                    time = 3.5f;
                 }
                 else if (ColorClickController.score > 15 && ColorClickController.score <= 20)
                 {
-                    time = 3.5f;
+                    time = 3f;
                 }
                 else if (ColorClickController.score > 20 && ColorClickController.score <= 25)
                 {
-                    time = 3f;
-                }
-                else if (ColorClickController.score > 25 && ColorClickController.score <= 30)
-                {
                     time = 2.5f;
                 }
-                else if(ColorClickController.score > 30)
+                else
                 {
                     time = 2f;
                 }
@@ -186,7 +178,7 @@ public class QuestionController : MonoBehaviour {
 
     public void randomQuanityText()
     {
-        int index = UnityEngine.Random.Range(0, 6);
+        int index = UnityEngine.Random.Range(0, 5);
         switch (index)
         {
             case 0:

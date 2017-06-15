@@ -12,7 +12,7 @@ public class ColorClickController : MonoBehaviour {
     private int blueIndex = 0;
     private int purpleIndex = 0;
 
-    private string currentText; 
+    private string currentText;
     private int timesClick;
 
     private float time;
@@ -26,15 +26,16 @@ public class ColorClickController : MonoBehaviour {
     public Button GreenButton;
     public Button PurpleButton;
     public Button LightBlueButton;
-    public List<Button> colorButton;
+
+    
     // Use this for initialization
-    void Start () {
+    void Start() {
         score = 0;
-        time = 5f;
+        time = 4.5f;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         //if (Input.GetKey(KeyCode.Q))
         //{
         //    PurpleColorBtnOnclick();
@@ -56,12 +57,12 @@ public class ColorClickController : MonoBehaviour {
         //    GreenColorBtnOnclick();
         //}
 
-        if(time > 0)
+        if (time > 0)
         {
             time -= Time.deltaTime;
             //Debug.Log("Time = " + time);
-            
-            if(time < 0)
+
+            if (time < 0)
             {
                 if (CheckCode())
                 {
@@ -70,36 +71,32 @@ public class ColorClickController : MonoBehaviour {
                     score++;
                     //Debug.Log("Score "+score);
                     scoreText.text = "" + score;
-                    if(score <= 5)
-                    {
-                        time = 5f;
-
-                    }else if(score > 5 && score <= 10)
+                    if (score <= 5)
                     {
                         time = 4.5f;
-                    }
-                    else if (score > 10 && score <= 15)
+
+                    } else if (score > 5 && score <= 10)
                     {
                         time = 4f;
                     }
-                    else if (score > 15 && score <= 20)
+                    else if (score > 10 && score <= 15)
                     {
                         time = 3.5f;
                     }
-                    else if (score > 20 && score <= 25)
+                    else if (score > 15 && score <= 20)
                     {
                         time = 3f;
                     }
-                    else if (score > 25 && score <= 30)
+                    else if (score > 20 && score <= 25)
                     {
                         time = 2.5f;
                     }
-                    else if (score > 30 && score <= 35)
+                    else
                     {
                         time = 2f;
                     }
                     resetTimesClick();
-                    
+
                 }
                 else
                 {
@@ -109,15 +106,15 @@ public class ColorClickController : MonoBehaviour {
                     PlayerPrefs.SetInt("SCORE", score);
                 }
             }
-            
+
         }
-        
+
     }
 
     public void RedColorBtnOnclick()
     {
         redIndex++;
-        Debug.Log("Red click: " +redIndex);
+        Debug.Log("Red click: " + redIndex);
     }
 
     public void YellowColorBtnOnclick()
@@ -155,7 +152,7 @@ public class ColorClickController : MonoBehaviour {
         switch (currentText)
         {
             case "RED":
-                if (purpleIndex + yellowIndex + greenIndex + blueIndex >0)
+                if (purpleIndex + yellowIndex + greenIndex + blueIndex > 0)
                 {
                     return false;
                 }
@@ -323,13 +320,14 @@ public class ColorClickController : MonoBehaviour {
         vt3.Add(new Vector3(-200f, -99f, 0));
         vt3.Add(new Vector3(0f, -99f, 0));
         vt3.Add(new Vector3(200f, -99f, 0));
-        int randomVtRed = Random.Range(0, 5);
+        int randomVtRed = 0;
         int randomVtYellow;
         int randomVtGreen;
         int randomVtLightBlue;
         int randomVtPurple;
         Debug.Log(randomVtRed);
-        
+
+        randomVtRed = Random.Range(0, 5);
         do
         {
             randomVtYellow = Random.Range(0, 5);
@@ -338,17 +336,17 @@ public class ColorClickController : MonoBehaviour {
         do
         {
             randomVtGreen = Random.Range(0, 5);
-        } while (randomVtGreen == randomVtYellow && randomVtGreen== randomVtRed);
+        } while (randomVtGreen == randomVtYellow || randomVtGreen == randomVtRed);
 
         do
         {
             randomVtLightBlue = Random.Range(0, 5);
-        } while (randomVtLightBlue == randomVtYellow && randomVtLightBlue == randomVtRed && randomVtLightBlue== randomVtGreen);
+        } while (randomVtLightBlue == randomVtYellow || randomVtLightBlue == randomVtRed || randomVtLightBlue == randomVtGreen);
 
         do
         {
             randomVtPurple = Random.Range(0, 5);
-        } while (randomVtPurple== randomVtRed && randomVtPurple == randomVtYellow && randomVtPurple== randomVtGreen && randomVtPurple== randomVtLightBlue);
+        } while (randomVtPurple == randomVtRed || randomVtPurple == randomVtYellow || randomVtPurple == randomVtGreen || randomVtPurple== randomVtLightBlue);
 
         Debug.Log(randomVtGreen + "   " + randomVtLightBlue + "   " + randomVtPurple + "   " + randomVtRed + "   " + randomVtYellow);
         RedButton.transform.localPosition = vt3[randomVtRed];
