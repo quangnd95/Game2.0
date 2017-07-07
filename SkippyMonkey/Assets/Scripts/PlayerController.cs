@@ -67,16 +67,22 @@ public class PlayerController : MonoBehaviour {
         if(playerStatus.isCollidingTop == true)
         {
             Debug.Log("Cham dau");
+            PlayerPrefs.SetInt("diem", BananaController.count);
+            BananaController.count = 0;
             TKSceneManager.ChangeScene("DIE");
         }
         if(playerStatus.isCollidingRight == true)
         {
             Debug.Log("Cham ben phai");
+            PlayerPrefs.SetInt("diem", BananaController.count);
+            BananaController.count = 0;
             TKSceneManager.ChangeScene("DIE");
         }
         if (playerStatus.isCollidingLeft == true)
         {
             Debug.Log("Cham ben trai");
+            PlayerPrefs.SetInt("diem", BananaController.count);
+            BananaController.count = 0;
             TKSceneManager.ChangeScene("DIE");
         }
     }

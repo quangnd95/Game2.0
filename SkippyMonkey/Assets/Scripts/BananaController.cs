@@ -6,8 +6,8 @@ public class BananaController : MonoBehaviour {
     public static int count;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
+        //gameObject.SetActive(false);
         count++;
-        Debug.Log(count);
     }
 }
