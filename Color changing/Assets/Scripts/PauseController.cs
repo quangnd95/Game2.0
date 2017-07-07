@@ -11,6 +11,7 @@ public class PauseController : MonoBehaviour {
     public Button homeButton;
     public Button retryButton;
     public AudioClip ButtonClick;
+    public Image advImage;
     // Use this for initialization
     void Start () {
         freezeScreen();
@@ -32,6 +33,8 @@ public class PauseController : MonoBehaviour {
             resumeButton.gameObject.SetActive(true);
             homeButton.gameObject.SetActive(true);
             retryButton.gameObject.SetActive(true);
+            advImage.gameObject.SetActive(true);
+
             isFreeze = !isFreeze;
         }
         else
@@ -40,13 +43,16 @@ public class PauseController : MonoBehaviour {
             resumeButton.gameObject.SetActive(false);
             homeButton.gameObject.SetActive(false);
             retryButton.gameObject.SetActive(false);
+            advImage.gameObject.SetActive(false);
             Time.timeScale = 1;
             isFreeze = !isFreeze;
         }
     }
     public void retry ()
     {
-        SceneManager.LoadScene("PlaySceneLv1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+        freezeScreen();
     }
     public void home()
     {

@@ -49,6 +49,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: circle
+  - name: Button
     uniqueID: 865563313
+    locked: 0
+  - name: New Layer
+    uniqueID: 1300915577
     locked: 0

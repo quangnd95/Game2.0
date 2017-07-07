@@ -26,7 +26,7 @@ public class QuestionController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         timeScales = 0;
-        time = 4.5f;
+        time = 2.5f;
         randomWorldText();
         randomQuanityText();
         randomColor();
@@ -40,27 +40,19 @@ public class QuestionController : MonoBehaviour {
             
             if (ColorClickController.score <= 5)
             {
-                timeScales = time / 4.5f;
+                timeScales = time / 2.5f;
             }
             else if (ColorClickController.score > 5 && ColorClickController.score <= 10)
             {
-                timeScales = time / 4f;
+                timeScales = time / 2f;
             }
             else if (ColorClickController.score > 10 && ColorClickController.score <= 15)
             {
-                timeScales = time / 3.5f;
+                timeScales = time / 1.5f;
             }
-            else if (ColorClickController.score > 15 && ColorClickController.score <= 20)
+            else if (ColorClickController.score > 15)
             {
-                timeScales = time / 3f;
-            }
-            else if (ColorClickController.score > 20 && ColorClickController.score <= 25)
-            {
-                timeScales = time / 2.5f;
-            }
-            else
-            {
-                timeScales = time / 2f;
+                timeScales = time / 1f;
             }
             
             timeScale.transform.localScale = new Vector3(timeScales, 1, 1);
@@ -71,27 +63,19 @@ public class QuestionController : MonoBehaviour {
                 randomColor();
                 if(ColorClickController.score <= 5)
                 {
-                    time = 4.5f;
+                    time = 2.5f;
 
                 } else if(ColorClickController.score > 5 && ColorClickController.score <= 10)
                 {
-                    time = 4f;
+                    time = 2f;
                 }
                 else if (ColorClickController.score > 10 && ColorClickController.score <= 15)
                 {
-                    time = 3.5f;
+                    time = 1.5f;
                 }
-                else if (ColorClickController.score > 15 && ColorClickController.score <= 20)
+                else if (ColorClickController.score > 15 )
                 {
-                    time = 3f;
-                }
-                else if (ColorClickController.score > 20 && ColorClickController.score <= 25)
-                {
-                    time = 2.5f;
-                }
-                else
-                {
-                    time = 2f;
+                    time = 1f;
                 }
             }
             

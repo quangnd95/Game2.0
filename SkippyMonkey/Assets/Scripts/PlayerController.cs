@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Lean.Touch;
 
-[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 
 public class PlayerController : MonoBehaviour {
@@ -13,23 +12,18 @@ public class PlayerController : MonoBehaviour {
     public float playerRunSpeed;
     public float playerJumpSpeed;
 
-    private Rigidbody2D rgBody;
     private Animator anim;
+
+    private Controller2D controller2D;
+    private Vector2 velocity;
+    private PlayerStatus playerStatus;
 
     public static Text score;
 
     private void Start()
     {
-        rgBody = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-
-        //Vector2 oldVelocity = rgBody.velocity;
-        //oldVelocity.x = playerSpeedX;
-        //rgBody.velocity = oldVelocity;
-
-        // Functional Programming
-        rgBody.velocity = rgBody.velocity.WithX(playerRunSpeed);
-
+        velocity = new Vector2(playerRunSpeed, 0);
+        controller2D = GetComponent<Controller2D>();
         LeanTouch.OnFingerTap += Jump;
     }
 
@@ -38,27 +32,52 @@ public class PlayerController : MonoBehaviour {
         LeanTouch.OnFingerTap -= Jump;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        rgBody.velocity = rgBody.velocity.WithX(playerRunSpeed);
-
-        if(transform.position.x > SCREEN_HALF_WIDTH)
+        if (transform.position.x > SCREEN_HALF_WIDTH)
         {
             transform.position = transform.position.WithX(
                 transform.position.x - 2 * SCREEN_HALF_WIDTH
             );
         }
+        velocity = new Vector2(
+            playerRunSpeed,
+            velocity.y + Physics2D.gravity.y * Time.fixedDeltaTime
+        );
+
+        playerStatus = controller2D.Move(velocity * Time.fixedDeltaTime);
+        transform.position += (Vector3)playerStatus.velocity;
+
+        CheckCollider();
     }
 
-    
     private void Jump(LeanFinger finger)
     {
-        rgBody.velocity = rgBody.velocity.WithY(playerJumpSpeed);
-        anim.SetBool("IsGrounded", false);
+        velocity = velocity.WithY(playerJumpSpeed);
+        //anim.SetBool("IsGrounded", false);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void CheckCollider()
     {
-        anim.SetBool("IsGrounded", true);
+        if (playerStatus.isCollidingBottom == true)
+        {
+         //   Debug.Log("Cham dat");
+            playerStatus.isCollidingBottom = false;
+        }
+        if(playerStatus.isCollidingTop == true)
+        {
+            Debug.Log("Cham dau");
+            TKSceneManager.ChangeScene("DIE");
+        }
+        if(playerStatus.isCollidingRight == true)
+        {
+            Debug.Log("Cham ben phai");
+            TKSceneManager.ChangeScene("DIE");
+        }
+        if (playerStatus.isCollidingLeft == true)
+        {
+            Debug.Log("Cham ben trai");
+            TKSceneManager.ChangeScene("DIE");
+        }
     }
 }

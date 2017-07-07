@@ -17,6 +17,7 @@ public class ColorClickController : MonoBehaviour {
 
     private float time;
     public static int score = 0;
+    public static int highScore = 0;
 
     public Text scoreText;
 
@@ -31,7 +32,7 @@ public class ColorClickController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         score = 0;
-        time = 4.5f;
+        time = 2.5f;
     }
 
     // Update is called once per frame
@@ -73,27 +74,19 @@ public class ColorClickController : MonoBehaviour {
                     scoreText.text = "" + score;
                     if (score <= 5)
                     {
-                        time = 4.5f;
+                        time = 2.5f;
 
                     } else if (score > 5 && score <= 10)
                     {
-                        time = 4f;
+                        time = 2f;
                     }
                     else if (score > 10 && score <= 15)
                     {
-                        time = 3.5f;
+                        time = 1.5f;
                     }
-                    else if (score > 15 && score <= 20)
+                    else if (score > 15 )
                     {
-                        time = 3f;
-                    }
-                    else if (score > 20 && score <= 25)
-                    {
-                        time = 2.5f;
-                    }
-                    else
-                    {
-                        time = 2f;
+                        time = 1f;
                     }
                     resetTimesClick();
 
@@ -104,6 +97,9 @@ public class ColorClickController : MonoBehaviour {
                     //Debug.Log("TimesClick = " + timesClick);
                     SceneManager.LoadScene("EndingScene");
                     PlayerPrefs.SetInt("SCORE", score);
+                    if (score > highScore)
+                        highScore = score;
+                    { PlayerPrefs.SetInt("HIGHSCORE", highScore); }
                 }
             }
 
@@ -114,31 +110,26 @@ public class ColorClickController : MonoBehaviour {
     public void RedColorBtnOnclick()
     {
         redIndex++;
-        Debug.Log("Red click: " + redIndex);
     }
 
     public void YellowColorBtnOnclick()
     {
         yellowIndex++;
-        Debug.Log("Yellow click: " + yellowIndex);
     }
 
     public void GreenColorBtnOnclick()
     {
         greenIndex++;
-        Debug.Log("Green click: " + greenIndex);
     }
 
     public void PurpleColorBtnOnclick()
     {
         purpleIndex++;
-        Debug.Log("Purple click: " + purpleIndex);
     }
 
     public void BlueColorBtnOnclick()
     {
         blueIndex++;
-        Debug.Log("Blue click: " + blueIndex);
     }
 
     private bool CheckCode()
@@ -147,8 +138,6 @@ public class ColorClickController : MonoBehaviour {
         currentText = QuestionController.currentText;
         timesClick = QuestionController.timesClick;
         int totalTimesClick = redIndex + yellowIndex + blueIndex + greenIndex + purpleIndex;
-        Debug.Log("TimesClick = " + timesClick);
-        Debug.Log("total times click: " + totalTimesClick);
         switch (currentText)
         {
             case "RED":
@@ -325,13 +314,11 @@ public class ColorClickController : MonoBehaviour {
         int randomVtGreen;
         int randomVtLightBlue;
         int randomVtPurple;
-        Debug.Log(randomVtRed);
 
         randomVtRed = Random.Range(0, 5);
         do
         {
             randomVtYellow = Random.Range(0, 5);
-            Debug.Log(randomVtYellow);
         } while (randomVtRed == randomVtYellow);
         do
         {
@@ -347,30 +334,13 @@ public class ColorClickController : MonoBehaviour {
         {
             randomVtPurple = Random.Range(0, 5);
         } while (randomVtPurple == randomVtRed || randomVtPurple == randomVtYellow || randomVtPurple == randomVtGreen || randomVtPurple== randomVtLightBlue);
-
-        Debug.Log(randomVtGreen + "   " + randomVtLightBlue + "   " + randomVtPurple + "   " + randomVtRed + "   " + randomVtYellow);
+        
         RedButton.transform.localPosition = vt3[randomVtRed];
         YellowButton.transform.localPosition = vt3[randomVtYellow];
         GreenButton.transform.localPosition = vt3[randomVtGreen];
         PurpleButton.transform.localPosition = vt3[randomVtPurple];
         LightBlueButton.transform.localPosition = vt3[randomVtLightBlue];
         
-
-        //case 1:
-        //    RedButton.transform.localPosition = new Vector3(-100f, 101f, 0);
-        //    YellowButton.transform.localPosition = new Vector3(100f, 101f, 0);
-        //    GreenButton.transform.localPosition = new Vector3(-200f, -99f, 0);
-        //    PurpleButton.transform.localPosition = new Vector3(0f, -99f, 0);
-        //    LightBlueButton.transform.localPosition = new Vector3(200f, -99f, 0);
-        //    break;
-        //default:
-        //    GreenButton.transform.localPosition = new Vector3(-100, 101f, 0);
-        //    YellowButton.transform.localPosition = new Vector3(100f, 101f, 0);
-        //    RedButton.transform.localPosition = new Vector3(-200f, -99f, 0);
-        //    PurpleButton.transform.localPosition = new Vector3(0f, -99f, 0);
-        //    LightBlueButton.transform.localPosition = new Vector3(200f, -99f, 0);
-        //    break;
-
 
     }
 }

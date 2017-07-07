@@ -14,5 +14,6 @@ public class SceneScript : MonoBehaviour
     public void HelpScene()
     {
         AudioSource.PlayClipAtPoint(ButtonClick, Vector3.zero);
+        SceneManager.LoadScene("TutorialScene");
     }
 }

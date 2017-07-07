@@ -7,12 +7,14 @@ public class EndingScript : MonoBehaviour {
     public Button HomeButton;
     public Button RetryButton;
     public Text endScore;
+    public Text highScore;
     public AudioClip ButtonClick;
 
     private void Start()
     {
         Debug.Log("End Color = " + PlayerPrefs.GetInt("SCORE"));
         endScore.text = "" + PlayerPrefs.GetInt("SCORE");
+        highScore.text= "" + PlayerPrefs.GetInt("HIGHSCORE");
     }
 
     public void HomeClicked()
