@@ -92,15 +92,14 @@ public class Controller2D : MonoBehaviour
             if (velocity.y > 0)
             {
                 playerStatus.isCollidingTop = true;
-                velocity.y = (hit.distance - skinWidth) * Mathf.Sign(velocity.y);
+                velocity.y = Physics2D.gravity.y * Time.fixedDeltaTime;
             }
                 
             else
             {
                 playerStatus.isCollidingBottom = true;
-                velocity.y = Physics2D.gravity.y * Time.fixedDeltaTime;
+                velocity.y = 0;
             }
-            velocity.y = 0;
 
 
         }
