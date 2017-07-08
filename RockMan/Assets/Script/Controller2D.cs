@@ -6,6 +6,7 @@ public class Controller2D : MonoBehaviour
 {
     public LayerMask collideMask;
     public float skinWidth;
+    public int numberOfRaycast;
 
     private BoxCollider2D bc2D;
     private Bounds colliderBounds;

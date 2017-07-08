@@ -5,38 +5,41 @@ using UnityEngine;
 public class Controller2D : MonoBehaviour
 {
     public LayerMask collideMaskObstacle;
-    public int raycastsHorizontal;
-    public int raycastsVertical;
+    public int numbleOfRay;
     public float skinWidth;
 
     private BoxCollider2D bc2D;
     private Bounds colliderBounds;
     private RaycastOrigins raycastOrigins;
     private PlayerStatus playerStatus;
+
+
     private void Awake()
     {
         bc2D = GetComponent<BoxCollider2D>();
+
     }
 
-    private void setRaycasts()
-    {
-        for (int i = 0; i < raycastsHorizontal; i++) 
-        {
-           
-        }
-    }
     public PlayerStatus Move(Vector2 velocity)
     {
         UpdateColliderBounds();
-        List<Vector2> x = new List<Vector2>();
         //Ke tia ngang xet va cham
-        Vector2 raycastOriginTop = velocity.x > 0 ? raycastOrigins.topRight : raycastOrigins.topLeft;   //Hướng kẻ
-        Vector2 raycastOriginMiddle = velocity.x > 0 ? raycastOrigins.middleRight : raycastOrigins.middleLeft;
-        Vector2 raycastOriginBottom = velocity.x > 0 ? raycastOrigins.bottomRight : raycastOrigins.bottomLeft;
+        for (int i = 0; i < numbleOfRay; i++)
+        {
+            Vector2 raycastOrigin = new Vector2();
+            if(velocity.x > 0)
+            {
+                raycastOrigin.x = raycastOrigins.topRight.x;
+                raycastOrigin.y = raycastOrigins.topRight.y - i * (raycastOrigins.topRight.y - raycastOrigins.bottomRight.y) / numbleOfRay;
+            } else
+            {
+                raycastOrigin.x = raycastOrigins.topLeft.x;
+                raycastOrigin.y = raycastOrigins.topLeft.y - i * (raycastOrigins.topRight.y - raycastOrigins.bottomRight.y) / numbleOfRay;
+            }
+            velocity = RaycastHorizontal(velocity, raycastOrigin);
+        }
 
-        velocity = RaycastHorizontal(velocity, raycastOriginTop);
-        velocity = RaycastHorizontal(velocity, raycastOriginMiddle);
-        velocity = RaycastHorizontal(velocity, raycastOriginBottom);
+        
 
         //Ke tia doc xet va cham
         Vector2 raycastOriginLeft = velocity.y > 0 ? raycastOrigins.topLeft : raycastOrigins.bottomLeft;
