@@ -32,6 +32,11 @@ public class PlayerController : MonoBehaviour {
         LeanTouch.OnFingerTap -= Jump;
     }
 
+    private void Update()
+    {
+        //CheckCollider();
+    }
+
     private void FixedUpdate()
     {
         if (transform.position.x > SCREEN_HALF_WIDTH)

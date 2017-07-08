@@ -5,7 +5,8 @@ using UnityEngine;
 public class Controller2D : MonoBehaviour
 {
     public LayerMask collideMaskObstacle;
-    public LayerMask collideMaskBanana;
+    public int raycastsHorizontal;
+    public int raycastsVertical;
     public float skinWidth;
 
     private BoxCollider2D bc2D;
@@ -17,10 +18,17 @@ public class Controller2D : MonoBehaviour
         bc2D = GetComponent<BoxCollider2D>();
     }
 
+    private void setRaycasts()
+    {
+        for (int i = 0; i < raycastsHorizontal; i++) 
+        {
+           
+        }
+    }
     public PlayerStatus Move(Vector2 velocity)
     {
         UpdateColliderBounds();
-
+        List<Vector2> x = new List<Vector2>();
         //Ke tia ngang xet va cham
         Vector2 raycastOriginTop = velocity.x > 0 ? raycastOrigins.topRight : raycastOrigins.topLeft;   //Hướng kẻ
         Vector2 raycastOriginMiddle = velocity.x > 0 ? raycastOrigins.middleRight : raycastOrigins.middleLeft;
@@ -53,9 +61,17 @@ public class Controller2D : MonoBehaviour
         if (hit)
         {
             if (velocity.x > 0)
+            {
                 playerStatus.isCollidingRight = true;
+                velocity.x = 0;
+            }
+               
             else
+            {
                 playerStatus.isCollidingLeft = true;
+                velocity.x = 0;
+            }
+                
 
             velocity.x = (hit.distance - skinWidth) * Mathf.Sign(velocity.x);
         }
@@ -82,7 +98,7 @@ public class Controller2D : MonoBehaviour
             else
             {
                 playerStatus.isCollidingBottom = true;
-                
+                velocity.y = Physics2D.gravity.y * Time.fixedDeltaTime;
             }
             velocity.y = 0;
 
