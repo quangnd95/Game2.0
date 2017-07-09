@@ -64,8 +64,8 @@ MonoBehaviour:
     y: 0
     width: 331
     height: 768
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 15}
@@ -356,19 +356,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scenes
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 72
   m_LastFolders:
-  - Assets/Scenes
+  - Assets
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\laptop88\Desktop\game\Color changing
+  m_LastProjectPath: D:\Game2.0\Color changing
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 5}
-    m_SelectedIDs: 8a250000
-    m_LastClickedID: 9610
-    m_ExpandedIDs: 00000000ae240000f024000000ca9a3bffffff7f
+    m_SelectedIDs: ee250000
+    m_LastClickedID: 9710
+    m_ExpandedIDs: 00000000ee2500002626000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -396,7 +396,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ae240000f0240000
+    m_ExpandedIDs: 00000000ee25000026260000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -514,7 +514,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: e0fbffff00000000
+    m_ExpandedIDs: 70f7ffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

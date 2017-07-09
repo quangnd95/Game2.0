@@ -1,25 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class InputController : MonoBehaviour {
+public class InputController : MonoBehaviour
+{
+    public KeyCode jumpButton;
+    public KeyCode dashButton;
 
-
-
-    public Vector2 Direction
-    {
-        get;
-        private set;
-    }
+    public Action<float> OnMovePressed;
+    public Action OnJumpPressed;
+    public Action OnDashPressed;
 
     private void Update()
     {
-        Direction = new Vector2(
-            Input.GetAxis("Horizontal"),
-            0
-        );
-        //Vertical điều khiển chiều dọc, horizontal dk ngang
-        // normalized đưa độ dài vector về 1.
-    }
+        if (OnMovePressed != null)
+        {
+            OnMovePressed(Input.GetAxisRaw("Horizontal"));
+        }
 
+        if (OnJumpPressed != null && Input.GetKeyDown(jumpButton))
+        {
+            OnJumpPressed();
+        }
+
+        if (OnDashPressed != null && Input.GetKeyDown(dashButton))
+        {
+            OnDashPressed();
+        }
+    }
 }

@@ -6,93 +6,107 @@ public class Controller2D : MonoBehaviour
 {
     public LayerMask collideMask;
     public float skinWidth;
-    public int numberOfRaycast;
+    public int numRaycastHorizontal = 2;
+    public int numRaycastVertical = 2;
 
     private BoxCollider2D bc2D;
     private Bounds colliderBounds;
     private RaycastOrigins raycastOrigins;
 
+    private float horizontalRaySpacing;
+    private float verticalRaySpacing;
 
     private void Awake()
     {
         bc2D = GetComponent<BoxCollider2D>();
+        numRaycastHorizontal = numRaycastHorizontal < 2 ? 2 : numRaycastHorizontal;
+        numRaycastVertical = numRaycastVertical < 2 ? 2 : numRaycastVertical;
     }
 
     public PlayerStatus Move(Vector2 velocity)
     {
-        UpdateColliderBounds();
-
-        velocity = RaycastHorizontal(velocity);
-        velocity = RaycastVertical(velocity);
-        //return velocity;
-        return new PlayerStatus
+        PlayerStatus result = new PlayerStatus
         {
-            velocity = velocity
+            velocity = velocity,
+            isCollidingBottom = false,
+            isCollidingLeft = false,
+            isCollidingRight = false,
+            isCollidingTop = false
         };
+
+        UpdateColliderBounds();
+        UpdateRaySpacing();
+
+        result = RaycastHorizontal(result);
+        result = RaycastVertical(result);
+
+        return result;
     }
 
-    private Vector2 RaycastHorizontal(Vector2 velocity)
+    private PlayerStatus RaycastHorizontal(PlayerStatus playerStatus)
     {
-        Vector2 raycastOriginTop = velocity.x > 0 ? raycastOrigins.topRight : raycastOrigins.topLeft;
-        Vector2 raycastOriginBottom = velocity.x > 0 ? raycastOrigins.bottomRight : raycastOrigins.bottomLeft;
+        Vector2 raycastOriginBottom = playerStatus.velocity.x > 0 ? raycastOrigins.bottomRight : raycastOrigins.bottomLeft;
 
-        RaycastHit2D hitTop = Physics2D.Raycast(
-            raycastOriginTop,
-            velocity.WithY(0),
-            Mathf.Abs(velocity.x) + skinWidth,
-            collideMask
-        );
-
-        if (hitTop)
+        for (int i = 0; i < numRaycastVertical; i++)
         {
-            velocity.x = (hitTop.distance - skinWidth) * Mathf.Sign(velocity.x);
+            Vector2 rayOrigin = raycastOriginBottom + Vector2.up * i * verticalRaySpacing;
+
+            RaycastHit2D hit = Physics2D.Raycast(
+                rayOrigin,
+                playerStatus.velocity.WithY(0),
+                Mathf.Abs(playerStatus.velocity.x) + skinWidth,
+                collideMask
+            );
+
+            if (hit)
+            {
+                playerStatus.velocity.x = (hit.distance - skinWidth) * Mathf.Sign(playerStatus.velocity.x);
+
+                if (playerStatus.velocity.x > 0 || hit.distance - skinWidth < 0.01f)
+                {
+                    playerStatus.isCollidingRight = true;
+                }
+                else
+                {
+                    playerStatus.isCollidingLeft = true;
+                }
+            }
         }
 
-        RaycastHit2D hitBottom = Physics2D.Raycast(
-            raycastOriginBottom,
-            velocity.WithY(0),
-            Mathf.Abs(velocity.x) + skinWidth,
-            collideMask
-        );
-
-        if (hitBottom)
-        {
-            velocity.x = (hitBottom.distance - skinWidth) * Mathf.Sign(velocity.x);
-        }
-
-        return velocity;
+        return playerStatus;
     }
 
-    private Vector2 RaycastVertical(Vector2 velocity)
+    private PlayerStatus RaycastVertical(PlayerStatus playerStatus)
     {
-        Vector2 raycastOriginLeft = velocity.y > 0 ? raycastOrigins.topLeft : raycastOrigins.bottomLeft;
-        Vector2 raycastOriginRight = velocity.y > 0 ? raycastOrigins.topRight : raycastOrigins.bottomRight;
+        Vector2 raycastOriginLeft = playerStatus.velocity.y > 0 ? raycastOrigins.topLeft : raycastOrigins.bottomLeft;
 
-        RaycastHit2D hitLeft = Physics2D.Raycast(
-            raycastOriginLeft,
-            velocity.WithX(0),
-            Mathf.Abs(velocity.y) + skinWidth,
-            collideMask
-        );
-
-        if (hitLeft)
+        for (int i = 0; i < numRaycastHorizontal; i++)
         {
-            velocity.y = (hitLeft.distance - skinWidth) * Mathf.Sign(velocity.y);
+            Vector2 rayOrigin = raycastOriginLeft + Vector2.right * i * horizontalRaySpacing;
+
+            RaycastHit2D hit = Physics2D.Raycast(
+                rayOrigin,
+                playerStatus.velocity.WithX(0),
+                Mathf.Abs(playerStatus.velocity.y) + skinWidth,
+                collideMask
+            );
+
+            if (hit)
+            {
+                playerStatus.velocity.y = (hit.distance - skinWidth) * Mathf.Sign(playerStatus.velocity.y);
+
+                if (playerStatus.velocity.y > 0)
+                {
+                    playerStatus.isCollidingTop = true;
+                }
+                else
+                {
+                    playerStatus.isCollidingBottom = true;
+                }
+            }
         }
 
-        RaycastHit2D hitRight = Physics2D.Raycast(
-            raycastOriginRight,
-            velocity.WithX(0),
-            Mathf.Abs(velocity.y) + skinWidth,
-            collideMask
-        );
-
-        if (hitRight)
-        {
-            velocity.y = (hitRight.distance - skinWidth) * Mathf.Sign(velocity.y);
-        }
-
-        return velocity;
+        return playerStatus;
     }
 
     private void UpdateColliderBounds()
@@ -120,6 +134,12 @@ public class Controller2D : MonoBehaviour
             colliderBounds.max.x,
             colliderBounds.min.y
         );
+    }
+
+    private void UpdateRaySpacing()
+    {
+        horizontalRaySpacing = (raycastOrigins.topRight.x - raycastOrigins.topLeft.x) / (numRaycastHorizontal - 1);
+        verticalRaySpacing = (raycastOrigins.topRight.y - raycastOrigins.bottomRight.y) / (numRaycastVertical - 1);
     }
 }
 
