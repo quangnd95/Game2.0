@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Start()
     {
+        BananaController.count = 0;
         velocity = new Vector2(playerRunSpeed, 0);
         controller2D = GetComponent<Controller2D>();
         LeanTouch.OnFingerTap += Jump;
@@ -73,21 +74,19 @@ public class PlayerController : MonoBehaviour {
         {
             Debug.Log("Cham dau");
             PlayerPrefs.SetInt("diem", BananaController.count);
-            BananaController.count = 0;
+            
             TKSceneManager.ChangeScene("DIE");
         }
         if(playerStatus.isCollidingRight == true)
         {
             Debug.Log("Cham ben phai");
             PlayerPrefs.SetInt("diem", BananaController.count);
-            BananaController.count = 0;
             TKSceneManager.ChangeScene("DIE");
         }
         if (playerStatus.isCollidingLeft == true)
         {
             Debug.Log("Cham ben trai");
             PlayerPrefs.SetInt("diem", BananaController.count);
-            BananaController.count = 0;
             TKSceneManager.ChangeScene("DIE");
         }
     }

@@ -10,5 +10,4 @@ public class HienDiem : MonoBehaviour {
         diem = gameObject.GetComponent<Text>();
         diem.text = "" + BananaController.count;
     }
-
 }
