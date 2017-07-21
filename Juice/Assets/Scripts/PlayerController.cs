@@ -31,18 +31,18 @@ public class PlayerController : MonoBehaviour {
         anim.SetFloat("MoveVertical", Input.GetAxisRaw("Vertical"));
         anim.SetFloat("MoveHorizontal", Input.GetAxisRaw("Horizontal"));
 
-        //if (anim.GetFloat("MoveHorizontal") >= 0)
-        //{
-        //    Vector3 v3T = transform.localScale;
-        //    v3T.x = -1;
-        //    transform.localScale = v3T;
-        //}
-        //else
-        //{
-        //    Vector3 v3T = transform.localScale;
-        //    v3T.x = 1;
-        //    transform.localScale = v3T;
-        //}
+        if (anim.GetFloat("MoveHorizontal") > 0)
+        {
+            Vector3 v3T = transform.localScale;
+            v3T.x = -1;
+            transform.localScale = v3T;
+        }
+        if (anim.GetFloat("MoveHorizontal") < 0)
+        {
+            Vector3 v3T = transform.localScale;
+            v3T.x = 1;
+            transform.localScale = v3T;
+        }
 
     }
 
